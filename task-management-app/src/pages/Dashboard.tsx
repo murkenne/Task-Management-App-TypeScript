@@ -1,5 +1,3 @@
-// Dashboard will display all task and there progress
-// Dashboard will display all task and there progress 
 import React from "react";
 import { useTaskContext } from "../context/TaskContext";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,8 +7,8 @@ const Dashboard: React.FC = () => {
 
   // Calculate task counts based on status
   const totalTasks = state.tasks.length;
-  const pendingTasks = state.tasks.filter((task) => task.status === "Pending").length;
-  const completedTasks = state.tasks.filter((task) => task.status === "Completed").length;
+  const pendingTasks = state.tasks.filter((task) => task.status === "pending").length;
+  const completedTasks = state.tasks.filter((task) => task.status === "completed").length;
 
   return (
     <div className="container mt-4">

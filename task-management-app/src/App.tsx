@@ -5,26 +5,42 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
 import ProtectedRoute from "./services/ProtectedRoute";
+import NavBar from "./components/NavBar";
+import TaskForm from "./pages/TaskForm";
+import { Task } from "./types/TaskTypes";
+import TaskList from "./pages/TaskList";
 
 const App: React.FC = () => {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
-  if (isLoading) {
+  // Simulated task submission handler
+  const handleTaskSubmit = (task: Task) => {
+    console.log("Task submitted:", task);
+    // Add your logic to save or process the task
+  };
+
+ {/*} if (isLoading) {
     return <div>Loading...</div>;
-  }
+  }*/}
 
   return (
-    <Routes>
-      {/* Public Route */}
-      <Route path="/login" element={<Login />} />
+    <>
+      <NavBar />
+      <Routes>
+        {/* Public Route */}
+        <Route path="/login" element={<Login />} />
 
-      {/* Protected Routes */}
-      <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile />} />
-      </Route>
-    </Routes>
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/tasks" element={<TaskList />} />
+          <Route path="/create-task" element={<TaskForm onSubmit={handleTaskSubmit} />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 
 export default App;
+

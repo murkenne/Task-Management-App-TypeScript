@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Navbar: React.FC = () => {
+const NavBar: React.FC = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -29,17 +29,19 @@ const Navbar: React.FC = () => {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <NavLink
-                className="nav-link"
-                activeClassName="active"
-                to="/dashboard"
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active" : ""}`
+                }
+                to="/"
               >
                 Dashboard
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
-                className="nav-link"
-                activeClassName="active"
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active" : ""}`
+                }
                 to="/tasks"
               >
                 Tasks
@@ -47,8 +49,19 @@ const Navbar: React.FC = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                className="nav-link"
-                activeClassName="active"
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active" : ""}`
+                }
+                to="/create-task"
+              >
+                Create Task
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active" : ""}`
+                }
                 to="/profile"
               >
                 Profile
@@ -56,11 +69,12 @@ const Navbar: React.FC = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                className="nav-link"
-                activeClassName="active"
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active" : ""}`
+                }
                 to="/login"
               >
-                Login
+                Logout
               </NavLink>
             </li>
           </ul>
@@ -70,4 +84,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
