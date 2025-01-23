@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import { Task } from "../types/TaskTypes";
+import { useTaskContext } from "../context/TaskContext";
 
-interface TaskFormProps {
-  onSubmit: (task: Omit<Task, "id">) => void; // Parent generates the ID
-  initialData?: Partial<Task>;
-}
+// interface TaskFormProps {
+//   onSubmit: (task: Omit<Task, "id">) => void; // Parent generates the ID
+//   initialData?: Partial<Task>;
+// }
 
-const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, initialData = {} }) => {
+// interface TaskFormProps {
+//   onSubmit: (task: Omit<Task, "id">) => void; // Prop passed from the parent
+// }
+
+const TaskForm: React.FC = () => {
+  const { dispatch } = useTaskContext(); 
+
   const [task, setTask] = useState<Omit<Task, "id">>({
-    title: initialData.title || "",
-    description: initialData.description || "",
-    status: initialData.status || "pending",
-    dueDate: initialData.dueDate || "",
-    createdBy: initialData.createdBy || "",
+    title: "",
+    description: "",
+    status: "pending",
+    dueDate: "",
+    createdBy: "",
   });
 
   const handleChange = (
@@ -22,10 +29,17 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, initialData = {} }) => {
     setTask((prevTask) => ({ ...prevTask, [name]: value }));
   };
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(task); // Pass the task to the parent for ID generation and further handling
-    // Clear the form after submission
+
+    // onSubmit 
+    // Generate a unique ID for the new task
+    const newTask: Task = { id: Date.now().toString(), ...task };
+
+    // Add the task to the dispatch 
+    dispatch({ type: "ADD_TASK", payload: newTask });
+
     setTask({
       title: "",
       description: "",

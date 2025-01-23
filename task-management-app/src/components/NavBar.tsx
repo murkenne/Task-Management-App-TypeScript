@@ -74,7 +74,7 @@ const NavBar: React.FC = () => {
                 }
                 to="/login"
               >
-                Logout
+                Login / Logout
               </NavLink>
             </li>
           </ul>

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const TaskList: React.FC = () => {
   const { state, dispatch } = useTaskContext();
+  
 
   const handleDeleteTask = (taskId: string) => {
     dispatch({ type: "DELETE_TASK", payload: taskId });
